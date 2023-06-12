@@ -1,6 +1,7 @@
 let livros = [] // variavel livros com array vazio
 const endpointDaAPI = 'https://guilhermeonrails.github.io/casadocodigo/livros.json' // api de onde os dados são extraídos
 const exibicaoLivros = document.getElementById('livros') // encontra a section do html para exibição dinâmica dos livros
+const tarjaValorTotal = document.getElementById('valor_total_livros_disponiveis')
 
 getBuscarLivrosDaAPI()
 
@@ -16,11 +17,13 @@ async function getBuscarLivrosDaAPI() {
 
 //exibe a lista de livros com suas características na tela
 function exibirLivros(listaDeLivros) {
+    tarjaValorTotal.innerHTML = ''
     exibicaoLivros.innerHTML = ''
     listaDeLivros.forEach((livro) => {
+        let disponibilidade = livro.quantidade > 0 ? "livro__imagens" : "livro__imagens indisponivel"; // verifica a disponibilidade do livro
         exibicaoLivros.innerHTML += `
         <div class="livro">
-        <img class="livro__imagens" src="${livro.imagem}" alt="${livro.alt} />
+        <img class="${disponibilidade}" src="${livro.imagem}" alt="${livro.alt} />
         <h2 class="livro__titulo">
         ${livro.titulo}
         </h2>
